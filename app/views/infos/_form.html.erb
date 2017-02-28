@@ -1,0 +1,50 @@
+<%= form_for @info, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :child_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :child_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :app_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :app_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :message_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :message_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :message_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :message_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :status, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :timestamp, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :timestamp, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :received_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :received_at, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                infos_path, :class => 'btn' %>
+  </div>
+<% end %>

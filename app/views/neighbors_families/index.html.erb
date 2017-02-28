@@ -1,0 +1,26 @@
+<%- model_class = NeighborsFamiliesLink -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:family) %></th>
+      <th><%= model_class.human_attribute_name(:role) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @neighbors_families.each do |neighbor_family| %>
+      <tr>
+        <td><%= link_to neighbor_family.id, neighbor_family %></td>
+        <td><%= link_to neighbor_family.name, neighbor_family %></td>
+        <td><%= neighbor_family.class.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_neighbors_families_link_path,
+            :class => 'btn btn-primary' %>

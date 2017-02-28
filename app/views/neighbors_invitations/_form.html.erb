@@ -1,0 +1,56 @@
+<%= form_for @neighbors_invitation, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :family_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :family_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :neighbor_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :neighbor_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :status, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :initial_text, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :initial_text, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :respond_by_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :respond_by_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :response_text, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :response_text, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :respond_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :respond_at, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                neighbors_invitations_path, :class => 'btn' %>
+  </div>
+<% end %>

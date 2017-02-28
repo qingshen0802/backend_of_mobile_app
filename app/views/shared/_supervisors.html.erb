@@ -1,0 +1,23 @@
+<p>
+	<h1>Supervisors</h1>
+
+	<table>
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Application</th>
+	      <th>User</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% supervisors.each do |supervisor| %>
+	      <tr>
+	        <td><%= link_to supervisor.name, supervisor %></td>
+	        <td><%= link_to supervisor.app.name, supervisor.app %></td>
+	        <td><%= supervisor.user.email %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</p>

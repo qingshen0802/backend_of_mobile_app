@@ -1,0 +1,29 @@
+<%- model_class = PlayInvitation -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:parent_id) %>:</strong></dt>
+  <dd><%= link_to @play_invitation.app.supervisor.name, parent_path(@play_invitation.app.supervisor) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:child_id) %>:</strong></dt>
+  <dd style="background-color: #<%= @play_invitation.child.color %>"><%= link_to @play_invitation.child.name, @play_invitation.child %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:invited_child_id) %>:</strong></dt>
+  <dd style="background-color: #<%= @play_invitation.invited_child.color %>"><%= link_to @play_invitation.invited_child.name, @play_invitation.invited_child %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:invitation_text) %>:</strong></dt>
+  <dd><%= @play_invitation.invitation_text %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:invited_at) %>:</strong></dt>
+  <dd><%= @play_invitation.invited_at %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @play_invitation.status %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              play_invitations_path, :class => 'btn'  %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              play_invitation_path(@play_invitation),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

@@ -1,0 +1,23 @@
+<p>
+	<h1>Parents</h1>
+
+	<table>
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Application</th>
+	      <th>User</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% parents.each do |parent| %>
+	      <tr>
+	        <td><%= link_to parent.name, parent %></td>
+	        <td><%= link_to parent.app.name, parent.app %></td>
+	        <td><%= parent.user.email %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</p>

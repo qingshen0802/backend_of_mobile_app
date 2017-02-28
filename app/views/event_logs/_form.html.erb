@@ -1,0 +1,74 @@
+<%= form_for @event_log, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :event_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :event_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :record_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :record_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :record_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :record_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :initiator_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :initiator_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :initiator_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :initiator_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :family1_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :family1_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :family2_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :family2_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :parent1_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :parent1_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :parent2_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :parent2_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :child1_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :child1_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :child2_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :child2_id, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                event_logs_path, :class => 'btn' %>
+  </div>
+<% end %>

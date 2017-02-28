@@ -1,0 +1,65 @@
+<%= render "shared/validation_errors", :resource => @parent %>
+<%= form_for @parent, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :first_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :first_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :last_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :last_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :family_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= select_parent_family_tag(f, @parent, class: 'text_field') %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :user_email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_email, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="password_group control-group">
+    <%= label_tag 'password_template', 'Password', :class => 'control-label' %>
+    <div class="controls" style="margin-top: 5px">
+      <%= content_tag :span, 'Edit', :class => 'edit_password text_field', :style => 'cursor:pointer;', :onclick => "$('#password_fields').html($('#password_fields_template').html()).show(); $('.password_group').hide();" %>
+      <% unless @parent.password.blank? %>
+        | <%= content_tag :span, 'Show', :class => 'show_password text_field', :style => 'cursor:pointer;', :onclick => "$('#password_value').show();" %><br/>
+        <div id="password_value" style="display:none; color: blue;"><%= @parent.password %></div>
+      <% end %>
+    </div>
+  </div>
+  <div id="password_fields"></div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <% if @parent.family %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  family_path(@parent.family), :class => 'btn' %>
+    <% else %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  parents_path, :class => 'btn' %>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="password_fields_template" style="display:none;">
+  <div class="control-group">
+    <%= label_tag :user_password, 'User Password', :class => 'control-label' %>
+    <div class="controls">
+      <%= password_field_tag 'parent[user_password]', '', :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :user_password_confirmation, 'User Password Confirmation', :class => 'control-label' %>
+    <div class="controls">
+      <%= password_field_tag 'parent[user_password_confirmation]', '', :class => 'text_field' %>
+    </div>
+  </div>
+</div>

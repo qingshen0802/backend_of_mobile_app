@@ -1,0 +1,26 @@
+<%= form_for @neighbors_families_link, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :family_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :family_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :neighbor_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :neighbor_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :neighbors_invitation_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :neighbors_invitation_id, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                neighbors_families_links_path, :class => 'btn' %>
+  </div>
+<% end %>

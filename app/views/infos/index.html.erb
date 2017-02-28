@@ -1,0 +1,50 @@
+<%- model_class = Info -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:parent) %></th>
+      <th><%= model_class.human_attribute_name(:child_id) %></th>
+      <th><%= model_class.human_attribute_name(:recipient_child_id) %></th>
+      <th><%= model_class.human_attribute_name(:message_type) %></th>
+      <th><%= model_class.human_attribute_name(:display_type) %></th>
+      <th><%= model_class.human_attribute_name(:color) %></th>
+      <th><%= model_class.human_attribute_name(:light_mode) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:message_text) %></th>
+      <!--th><%= model_class.human_attribute_name(:received_at) %></th-->
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @infos.each do |info| %>
+      <tr>
+        <td><%= link_to info.id, info_path(info) %></td>
+        <td><%= link_to info.get_supervisor, info.get_supervisor %></td>
+        <td style="<%= "background-color: ##{info.child.color};" if info.child %>"><%= link_to(info.child.name, child_path(info.child), title: info.child.playcelet_id) if info.child %></td>
+        <td style="<%= "background-color: ##{info.recipient_child.color};" if info.recipient_child %>"><%= link_to(info.recipient_child.name, child_path(info.recipient_child), title: info.recipient_child.playcelet_id) if info.recipient_child %></td>
+        <td><%= info.message_type %></td>
+        <td><%= info.display_type %></td>
+        <td style="<%= "background-color: ##{info.color};" %>">#<%= info.color %></td>
+        <td><%= info.light_mode %></td>
+        <td><%= info.status %></td>
+        <td><%= info.message_text ? info.message_text[0..50] : '' %></td>
+        <!--td><%= info.received_at %></td-->
+        <td><%=l_with_time_zone info.created_at %></td>
+        <td>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      info_path(info),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @infos, renderer: BootstrapPagination::Rails %>

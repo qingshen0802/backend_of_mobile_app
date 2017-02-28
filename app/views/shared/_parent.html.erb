@@ -1,0 +1,4 @@
+<div>Parent: <%= link_to parent.name, parent %></div>
+<div>My Family: <%= link_to family.name, family %></div>
+<%= render partial: 'shared/children', locals: {children: children} %>
+<%= render partial: 'shared/located_children', locals: {located_children: located_children} %>

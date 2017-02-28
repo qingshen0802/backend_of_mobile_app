@@ -1,0 +1,3 @@
+<div>Supervisor: <%= link_to supervisor.name, supervisor %></div>
+<div>My Place: <%= link_to place.name, place %></div>
+<%= render partial: 'shared/located_children', locals: {located_children: located_children} %>

@@ -1,0 +1,46 @@
+<%= render "shared/validation_errors", :resource => @message %>
+<%= form_for @message, :html => { :class => 'form-horizontal' } do |f| %>
+    <div class="control-group">
+      <%= f.label :message_type, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :message_type, readonly: :readonly %>
+      </div>
+    </div>
+  <% if @message.check_in? %>
+    <div class="control-group">
+      <%= f.label :child_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= select_message_child_tag @children, selected: @message.child_id, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :parent_id, :class => 'control-label' %>
+      <div class="controls">
+        <% if current_user.admin? %>
+          <%= select_message_parent_tag @parents, selected: @message.supervisor ? @message.supervisor.id : nil, :class => 'text_field' %>
+        <% else %>
+          <%= select_message_parent_tag [current_user.supervisor], selected: @message.supervisor ? @message.supervisor.id : current_user.supervisor ? current_user.supervisor.id : nil, :class => 'text_field' %>
+        <% end %>
+      </div>
+    </div>
+  <% elsif @message.come_home? %>
+    <div class="control-group">
+      <%= f.label :parent_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= select_message_parent_tag @parents, selected: @message.supervisor ? @message.supervisor.id : nil, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :recipient_child_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= select_message_child_tag @children, name: 'message[recipient_child_id]', selected: @message.recipient_child_id, :class => 'text_field' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                messages_path, :class => 'btn' %>
+  </div>
+<% end %>

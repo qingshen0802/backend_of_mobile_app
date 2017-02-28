@@ -1,0 +1,41 @@
+<%- model_class = EventLog -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+
+<%= render partial: 'table_header_footer' %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:event_type) %></th>
+      <th><%= model_class.human_attribute_name(:record_id) %></th>
+      <th><%= model_class.human_attribute_name(:initiator_id) %></th>
+      <th><%= model_class.human_attribute_name(:family1_id) %></th>
+      <th><%= model_class.human_attribute_name(:family2_id) %></th>
+      <th><%= model_class.human_attribute_name(:parent1_id) %></th>
+      <th><%= model_class.human_attribute_name(:parent2_id) %></th>
+      <th><%= model_class.human_attribute_name(:child1_id) %></th>
+      <th><%= model_class.human_attribute_name(:child2_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event_logs.each do |event_log| %>
+      <tr>
+        <td><%= link_to event_log.id, event_log_path(event_log) %></td>
+        <td><%= event_log.event_type %></td>
+        <td><%= event_log.record_id ? event_log.record.is_a?(User) ? event_log.record : link_to(event_log.record, event_log.record) : event_log.record_type %></td>
+        <td><%= event_log.initiator_id ? event_log.initiator.is_a?(User) ? event_log.initiator : link_to(event_log.initiator, event_log.initiator) : event_log.initiator_type %></td>
+        <td><%= link_to event_log.family1, event_log.family1 if event_log.family1_id %></td>
+        <td><%= link_to event_log.family2, event_log.family2 if event_log.family2_id %></td>
+        <td><%= link_to event_log.parent1, event_log.parent1 if event_log.parent1_id %></td>
+        <td><%= link_to event_log.parent2, event_log.parent2 if event_log.parent2_id %></td>
+        <td><%= link_to event_log.child1,  event_log.child1  if event_log.child1_id  %></td>
+        <td><%= link_to event_log.child2,  event_log.child2  if event_log.child2_id  %></td>
+        <td><%=l_with_time_zone event_log.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render partial: 'table_header_footer' %>

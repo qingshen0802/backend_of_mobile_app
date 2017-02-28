@@ -1,0 +1,5 @@
+<%- model_class = Message -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{message_type} %{model}'], model: model_class.model_name.human.titleize, message_type: @message.message_type.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>

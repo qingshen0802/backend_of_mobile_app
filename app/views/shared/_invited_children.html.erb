@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1><%=t '.title', :default => "Invited Children: #{invited_children.count}" %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Family</th>
+      <th>Playcelet</th>
+      <th>Color</th>
+      <th>Supervisor</th>
+      <th>At Family</th>
+      <th>Located at</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% invited_children.each do |child| %>
+      <tr>
+        <td><%= link_to child.name, child %></td>
+        <td><%= link_to child.family.name, child.family %></td>
+        <td style="background-color: #<%= child.color %>"><%= link_to child.playcelet, child_path(child), title: child.mac_address %></td>
+        <td style="background-color: #<%= child.color %>"><%= link_to child.color_name, child_path(child), title: child.color %></td>
+        <td><%= link_to(child.app.supervisor.name, child.app.supervisor) if child.app %></td>
+        <td><%= link_to(child.app.supervisor.family.name, child.app.supervisor.family) if child.app %></td>
+        <td><%= child.located_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

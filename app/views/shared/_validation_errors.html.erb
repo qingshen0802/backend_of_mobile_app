@@ -1,0 +1,11 @@
+<% if resource and resource.errors and (resource.errors.count > 0) %>
+  <div class="alert alert-danger">
+    <a class="close" data-dismiss="alert">&times;<a>
+    <strong><%= pluralize(resource.errors.count,"error") %> validation problems found.</strong>
+    <ul>
+    <% resource.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

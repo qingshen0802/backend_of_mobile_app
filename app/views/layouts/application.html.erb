@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Playcelet" %></title>
+    <link rel="icon" type="image/png" href="/P-logo.png"/>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Playcelet</a>
+          <div class="container nav-collapse">
+            <ul class="nav floatRight">
+              <% if user_signed_in? %>
+                <li><div>Logged in as <strong><%= current_user.email %></strong></div></li>
+                <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+                <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+              <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %></li>
+                <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+              <% end %>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <% if notice %>
+              <p class="alert alert-success"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p class="alert alert-danger"><%= alert %></p>
+            <% end %>
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+          <% if user_signed_in? %>
+            <div class="col-md-3">
+              <div class="well sidebar-nav">
+                <h3><%= @sidebar_big_title %></h3>
+                <ul class="nav nav-list">
+                  <li class="nav-header"><%= @sidebar_small_title %></li>
+                  <% if current_user.admin? %>
+                    <li><%= link_to t('.title', :default => Family.model_name.human.pluralize.titleize), families_path %></li>
+                    <li><%= link_to t('.title', :default => Message.model_name.human.pluralize.titleize), messages_path %></li>
+                    <li><%= link_to t('.title', :default => Info.model_name.human.pluralize.titleize), infos_path %></li>
+                    <li><%= link_to t('.title', :default => PlayNetwork.model_name.human.pluralize.titleize), play_networks_path %></li>
+                    <li><%= link_to t('.title', :default => PlayInvitation.model_name.human.pluralize.titleize), play_invitations_path %></li>
+                    <li><%= link_to t('.destroy', :default => t("helpers.links.clear_demo_data")), delete_all_messages_data_path, :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) } %></li>
+                  <% elsif current_user.parent? %>
+                    <li><%= link_to t('.title', :default => Family.model_name.human.pluralize.titleize), families_path %></li>
+                    <li><%= link_to t('.title', :default => Message.model_name.human.pluralize.titleize), messages_path %></li>
+                    <li><%= link_to t('.title', :default => Info.model_name.human.pluralize.titleize), infos_path %></li>
+                    <li><%= link_to t('.title', :default => PlayInvitation.model_name.human.pluralize.titleize), play_invitations_path %></li>
+                  <% elsif current_user.supervisor? %>
+                    <li><%= link_to t('.title', :default => Place.model_name.human.pluralize.titleize), places_path %></li>
+                    <li><%= link_to t('.title', :default => Supervisor.model_name.human.pluralize.titleize), supervisors_path %></li>
+                    <li><%= link_to t('.title', :default => Message.model_name.human.pluralize.titleize), messages_path %></li>
+                    <li><%= link_to t('.title', :default => Info.model_name.human.pluralize.titleize), infos_path %></li>
+                    <li><%= link_to 'Neighbors Network Invitations', neighbors_invitations_path %></li>
+                    <li><%= link_to 'Our Neighbors', neighbors_families_path %></li>
+                  <% end %>
+                </ul>
+              </div><!--/.well -->
+            </div><!--/span-->
+          <% end %>
+        </div><!--/row-->
+
+      <footer>
+        <p><center>&copy; Playcelet 2014</center></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

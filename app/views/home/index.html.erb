@@ -1,0 +1,5 @@
+<% if current_user.supervisor? %>
+  <%= render partial: 'shared/supervisor', locals: {supervisor: @supervisor, place: @place, located_children: @located_children} %>
+<% elsif current_user.parent? %>
+  <%= render partial: 'shared/parent', locals: {parent: @parent, family: @family, children: @children, located_children: @located_children} %>
+<% end %>

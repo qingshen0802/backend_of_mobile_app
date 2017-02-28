@@ -1,0 +1,22 @@
+// Place all the styles related to the Apps controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.sidebar {
+  margin-left: 15px;
+}
+
+.floatRight{
+  float: right !important;
+}
+
+.navbar .nav > li div {
+	padding-top: 10px;
+}
+
+
+a.btn.btn-primary, a.btn.btn-danger{
+  &:visited{
+    color: #ffffff;
+  }
+}

@@ -1,0 +1,50 @@
+<%= form_for @play_network, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                play_networks_path, :class => 'btn' %>
+  </div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= PlayNode.human_attribute_name(:id) %></th>
+      <th><%= PlayNode.human_attribute_name(:child_id) %></th>
+      <th><%= PlayNode.human_attribute_name(:playcelet_id) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @play_network.play_nodes.each do |play_node| %>
+      <tr>
+        <td><%= link_to play_node.id, play_node_path(play_node) %></td>
+        <td style="background-color: #<%= play_node.child.color %>"><%= link_to play_node.child.name, play_node.child %></td>
+        <td style="background-color: #<%= play_node.child.color %>"><%= link_to play_node.child.playcelet, play_node.child %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_play_node_path(play_node), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      play_node_path(play_node),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="form-actions">
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+            new_play_node_path(play_network_id: @play_network.id),
+            :class => 'btn btn-primary' %>
+</div>

@@ -1,0 +1,42 @@
+<%= render "shared/validation_errors", :resource => @user %>
+<%= form_for :user, as: :registration, url: (@user.new_record? ? registrations_path : registration_path(@user)), method: (@user.new_record? ? :post : :patch), html: { class: 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, class: :text_field %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, class: :text_field %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, class: :text_field %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :password_confirmation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, class: :text_field %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :time_zone, :class => 'control-label' %>
+    <div class="controls">
+      <%= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)", class: :text_field %>
+    </div>
+  </div>
+
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                registrations_path, :class => 'btn' %>
+  </div>
+<% end %>

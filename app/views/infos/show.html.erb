@@ -1,0 +1,31 @@
+<%- model_class = Info -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:child_id) %>:</strong></dt>
+  <dd><%= link_to @info.child, @info.child %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:parent) %>:</strong></dt>
+  <dd><%= link_to @info.get_supervisor, @info.get_supervisor %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:message_id) %>:</strong></dt>
+  <dd><%= @info.message_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:message_type) %>:</strong></dt>
+  <dd><%= @info.message_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @info.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:timestamp) %>:</strong></dt>
+  <dd><%= @info.timestamp %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:received_at) %>:</strong></dt>
+  <dd><%= @info.received_at %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              infos_path, :class => 'btn'  %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              info_path(@info),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

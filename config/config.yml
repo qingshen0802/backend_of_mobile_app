@@ -1,0 +1,20 @@
+development:
+  perform_authentication: true
+  default_admin:
+    email: admin@playcelet.com
+    username: admin
+    password: password
+
+test:
+  perform_authentication: true
+  default_admin:
+    email: admin@playcelet.com
+    username: admin
+    password: password
+
+production:
+  perform_authentication: true
+  default_admin:
+    email: admin@playcelet.com
+    username: admin
+    password: password

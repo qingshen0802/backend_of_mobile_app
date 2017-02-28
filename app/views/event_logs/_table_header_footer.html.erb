@@ -1,0 +1,10 @@
+<%= link_to t('.all', :default => t("helpers.links.all")),
+            event_logs_path(@filter.merge(mode: EventLog::ModeTypes::ALL)),
+            :class => "btn#{' btn-primary' if EventLog::ModeTypes.all?(params[:mode])}" %>
+<%= link_to t('.read', :default => t("helpers.links.read")),
+            event_logs_path(@filter.merge(mode: EventLog::ModeTypes::READ)),
+            :class => "btn#{' btn-primary' if EventLog::ModeTypes.read?(params[:mode])}" %>
+<%= link_to t('.write', :default => t("helpers.links.write")),
+            event_logs_path(@filter.merge(mode: EventLog::ModeTypes::WRITE)),
+            :class => "btn#{' btn-primary' if EventLog::ModeTypes::write?(params[:mode])}" %>
+<%= will_paginate @event_logs, renderer: BootstrapPagination::Rails %>

@@ -1,0 +1,50 @@
+<%- model_class = NeighborsInvitation -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:family_id) %></th>
+      <th><%= model_class.human_attribute_name(:neighbor_id) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:initial_text) %></th>
+      <th><%= model_class.human_attribute_name(:respond_by_id) %></th>
+      <th><%= model_class.human_attribute_name(:response_text) %></th>
+      <th><%= model_class.human_attribute_name(:respond_at) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @neighbors_invitations.each do |neighbors_invitation| %>
+      <tr>
+        <td><%= link_to neighbors_invitation.id, neighbors_invitation_path(neighbors_invitation) %></td>
+        <td><%= neighbors_invitation.family %></td>
+        <td><%= neighbors_invitation.invited_family %></td>
+        <td><%= neighbors_invitation.status %></td>
+        <td><%= neighbors_invitation.user.supervisor %></td>
+        <td><%= neighbors_invitation.invitation_text %></td>
+        <td><%= neighbors_invitation.respond_by.try(:name) %></td>
+        <td><%= neighbors_invitation.response_text %></td>
+        <td><%= neighbors_invitation.respond_at %></td>
+        <td><%=l_with_time_zone neighbors_invitation.invited_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_neighbors_invitation_path(neighbors_invitation), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      neighbors_invitation_path(neighbors_invitation),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_neighbors_invitation_path,
+            :class => 'btn btn-primary' %>

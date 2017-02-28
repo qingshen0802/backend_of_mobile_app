@@ -1,0 +1,60 @@
+<h1>Listing delayed_jobs</h1>
+
+
+<%- model_class = DelayedJob -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<div class="list-header">
+  <%= link_to 'All', delayed_jobs_path, class: 'btn btn-mini btn-primary' %>
+  <%= link_to 'Failed', delayed_jobs_path(type: :failed), class: 'btn btn-mini btn-danger' %>
+  <%= link_to 'Success', delayed_jobs_path(type: :success), class: 'btn btn-mini' %>
+  <%= link_to 'Queued', delayed_jobs_path(type: :queued), class: 'btn btn-mini' %>
+  <%= link_to 'Run', delayed_jobs_path(type: :run), class: 'btn btn-mini' %>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:priority) %></th>
+      <th><%= model_class.human_attribute_name(:attempts) %></th>
+      <th><%= model_class.human_attribute_name(:handler) %></th>
+      <th><%= model_class.human_attribute_name(:last_error) %></th>
+      <th><%= model_class.human_attribute_name(:run_at) %></th>
+      <th><%= model_class.human_attribute_name(:locked_at) %></th>
+      <th><%= model_class.human_attribute_name(:failed_at) %></th>
+      <th><%= model_class.human_attribute_name(:locked_by) %></th>
+      <th><%= model_class.human_attribute_name(:queue) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @delayed_jobs.each do |delayed_job| %>
+      <tr>
+        <td><%= link_to delayed_job.id, delayed_job_path(delayed_job) %></td>
+        <td><%= link_to delayed_job.priority, delayed_job_path(delayed_job) %></td>
+        <td><%= link_to delayed_job.attempts, delayed_job_path(delayed_job) %></td>
+        <td><%= link_to delayed_job.handler ? delayed_job.handler[0..99] : '', delayed_job_path(delayed_job) %></td>
+        <td><%= link_to delayed_job.last_error ? delayed_job.last_error[0..99] : '', delayed_job_path(delayed_job) %></td>
+        <td><%=l_with_time_zone(delayed_job.run_at) if delayed_job.run_at %></td>
+        <td><%=l_with_time_zone(delayed_job.failed_at) if delayed_job.failed_at %></td>
+        <td><%=l_with_time_zone(delayed_job.locked_at) if delayed_job.locked_at %></td>
+        <td><%= link_to delayed_job.locked_by || '' , delayed_job_path(delayed_job) %></td>
+        <td><%= link_to delayed_job.queue || '', delayed_job_path(delayed_job) %></td>
+        <td><%=l_with_time_zone(delayed_job.created_at) if delayed_job.created_at %></td>
+        <td><%=l_with_time_zone(delayed_job.updated_at) if delayed_job.updated_at%></td>
+        <td>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      delayed_job_path(delayed_job),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @delayed_jobs, renderer: BootstrapPagination::Rails %>

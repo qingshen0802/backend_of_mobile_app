@@ -1,0 +1,31 @@
+<%- model_class = Supervisor -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:type) %>:</strong></dt>
+  <dd><%= @supervisor.type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
+  <dd><%= @supervisor.first_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
+  <dd><%= @supervisor.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:family_id) %>:</strong></dt>
+  <dd><%= @supervisor.family_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @supervisor.user_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:app_id) %>:</strong></dt>
+  <dd><%= @supervisor.app_id %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              supervisors_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_supervisor_path(@supervisor), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              supervisor_path(@supervisor),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

@@ -1,0 +1,7 @@
+<% if @user.parent? %>
+  <strong>Parent Details:</strong>
+  <%= render partial: 'shared/parent', locals: {parent: @parent, family: @family, children: @children, located_children: @located_children} %>
+<% else %>
+  <strong>Supervisor Details:</strong>
+  <%= render partial: 'shared/supervisor', locals: {supervisor: @supervisor, place: @place, located_children: @located_children} %>
+<% end %>

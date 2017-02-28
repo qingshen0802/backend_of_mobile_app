@@ -1,0 +1,65 @@
+<div style="display:none;" id="controls_placeholder">
+  <% @friends.keys.each do |child_id| %>
+    <div id="friends_<%= child_id %>">
+      <% if @friends[child_id].blank? %>
+        There are no friends. Please edit <%= link_to t('.title', :default => PlayNetwork.model_name.human.pluralize.titleize), play_networks_path %> or choose another child to initiate <%= t('.title', :default => PlayInvitation.model_name.human.titleize) %>
+      <% else %>
+        <%= select_play_invitation_invited_child_tag @friends[child_id], :class => 'text_field' %>
+      <% end %>
+    </div>
+  <% end %>
+  <% @families.each do |family| %>
+    <div id="parents_<%= family.id %>">
+      <% if @parents[family.id].blank? %>
+        Family <%= link_to family.name, family %> does not have parents.
+      <% else %>
+        <%= select_play_invitation_parent_tag @parents[family.id], :class => 'text_field' %>
+      <% end %>
+    </div>
+    <div id="children_<%= family.id %>">
+      <% if @children[family.id].blank? %>
+        Family <%= link_to family.name, family %> does not have children.
+      <% else %>
+        <%= select_play_invitation_child_tag @children[family.id], :class => 'text_field' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<%= form_for @play_invitation, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :family_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= select_play_invitation_family_tag f, @play_invitation, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :parent_id, :class => 'control-label' %>
+    <div class="controls" id="play_invitation_parents">
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :child_id, :class => 'control-label' %>
+    <div class="controls" id="play_invitation_children">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :invited_child_id, :class => 'control-label' %>
+    <div class="controls" id="play_invitation_friends">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :duration, :class => 'control-label' %>
+    <div class="controls" id="play_invitation_duration">
+      <%= select_play_invitation_duration_tag f, @play_invitation %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                play_invitations_path, :class => 'btn' %>
+  </div>
+<% end %>
+<%= javascript_tag "window.PlayInvitation.initialize();" %>

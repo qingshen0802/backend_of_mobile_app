@@ -1,0 +1,14 @@
+/* Customize variables right before you include bootstrap */
+$brand-primary: rgb(181,208,69);
+$brand-primary-dark: rgb(114,132,44);
+
+$navbar-default-color: #fff;
+$navbar-default-bg: $brand-primary;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: #777;
+
+$link-color: $brand-primary-dark;
+
+$input-border-focus: $brand-primary-dark;
+
+@import "bootstrap";
